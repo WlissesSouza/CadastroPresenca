@@ -1,0 +1,40 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.nav-link {
+    margin-left: 10px !important;
+    margin-right: 10px !important;;
+}
+
+.toast {
+    font-family: Arial, sans-serif;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* CORES PADRAO DO TOAST */
+.toast-success {
+    background-color: #28a745 !important; /* Verde-claro */
+}
+.toast-error {
+    background-color: #dc3545 !important; /* Vermelho */
+}
+.toast-warning {
+    background-color: #ffc107 !important; /* Amarelo */
+}
+.toast-info {
+    background-color: #17a2b8 !important; /* Azul-claro */
+}

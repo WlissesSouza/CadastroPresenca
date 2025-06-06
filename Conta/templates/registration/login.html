@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+    <!-- Formulário de Login -->
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-5 col-md-7 col-sm-12">
+                <div class="card border-0 shadow-lg">
+                    <div class="card-header bg-primary text-white text-center py-4">
+                        <h3 class="mb-1">Login</h3>
+                        <p class="mb-0">Use seu usuário e senha</p>
+                    </div>
+                    <div class="card-body p-4">
+                        <form method="post" action="{% url 'login' %}">
+                            {% csrf_token %}
+
+                            <!-- Campo de Usuário -->
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Usuário</label>
+                                <input
+                                        type="text"
+                                        name="username"
+                                        class="form-control"
+                                        id="username"
+                                        required
+                                >
+                            </div>
+
+                            <!-- Campo de Senha -->
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Senha</label>
+                                <input
+                                        type="password"
+                                        name="password"
+                                        class="form-control"
+                                        id="password"
+                                        required
+                                >
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Entrar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script>
+        // Mostra as notificações toast automaticamente
+        document.addEventListener('DOMContentLoaded', function () {
+            var toasts = document.querySelectorAll('.toast');
+            toasts.forEach(function (toast) {
+                new bootstrap.Toast(toast).show();
+            });
+        });
+    </script>
+{% endblock %}

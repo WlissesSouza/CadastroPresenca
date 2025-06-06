@@ -1,0 +1,143 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Home{% endblock %}</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Toast CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toast-notification-js/dist/toast.min.css">
+
+    <!-- Importando meu style-->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    {% block links_extra %}{% endblock %}
+    <style>{% block styles_extra %}{% endblock %}</style>
+</head>
+<body>
+
+<!-- Mengem do Toast-->
+{% if messages %}
+    <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1200;">
+        {% for message in messages %}
+            <div class="toast fade show align-items-center text-white bg-{{ message.tags }} border-0 mb-2" role="alert"
+                 aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        {{ message }}
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                            aria-label="Close"></button>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light mx-4 justify-content-between">
+    <div class="container">
+        <a class="navbar-brand" href="/"><i class="bi bi-house-fill"></i>Novo Tempo - Freguesia</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="chamada/"><i class="bi bi-people-fill"></i>Chamada</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="membros/cadastro"><i class="bi bi-person-plus-fill"></i> Cadastrar novo
+                        membro</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="membros/"><i class="bi bi-people-fill"></i>Visualizar membros</a>
+                </li>
+
+
+                {% block links_nav %}{% endblock %}
+            </ul>
+        </div>
+    </div>
+    <div class="ml-auto justify-content-end">
+        <ul class="navbar-nav ml-auto">
+
+            {% if user.is_authenticated %}
+
+                <!-- Logout na conta do ADM-->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-person-circle"></i> {{ user.username }}
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                        <li>
+                            <form method="POST" action="{% url 'logout' %}" style="margin: 0;">
+                                {% csrf_token %}
+                                <button class="dropdown-item" type="submit">
+                                    <i class="bi bi-box-arrow-right"></i> Sair
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- Logar na conta do ADM-->
+            {% else %}
+                <li class="nav-item">
+                    <a href="{% url 'login' %}" class="nav-link">
+                        <i class="bi bi-box-arrow-in-right"></i> Entrar
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+
+<!-- Conteúdo Principal -->
+<div class="mt-2 mx-3">
+    {% block content %}
+
+    {% endblock %}
+</div>
+
+<!-- Rodapé -->
+<footer class="bg-light text-center mt-auto">
+    <div class="text-center p-4">
+        Espaço Novo Tempo!
+    </div>
+</footer>
+
+<!-- Bibliotecas externas -->
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!--SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- Toast JS -->
+<script src="https://cdn.jsdelivr.net/npm/toast-notification-js/dist/toast.min.js"></script>
+
+<!-- Script de criar mascara para os campos -->
+<script src="https://cdn.jsdelivr.net/npm/vanilla-masker/build/vanilla-masker.min.js"></script>
+
+
+<!-- Meu script customizado -->
+<script src="{% static 'js/custom.js' %}"></script>
+
+{% block script_extra %}{% endblock %}
+
+</body>
+</html>
