@@ -1,63 +1,139 @@
-{% extends 'base.html' %}
+{% extends 'base_acesso.html' %}
 
 {% block title %}Login{% endblock %}
 
+{% block extra_css %}
+    {{ block.super }}
+    <style>
+        .security-card {
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            border: none;
+        }
+        .security-header {
+            border-radius: 15px 15px 0 0 !important;
+            background: linear-gradient(135deg, #0d6efd, #0b5ed7);
+        }
+        .btn-confirm {
+            background: linear-gradient(135deg, #0d6efd, #0b5ed7);
+            border: none;
+        }
+        .password-input {
+            position: relative;
+        }
+        .password-input i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #6c757d;
+        }
+        /* Ajustes específicos para o formulário de login */
+        .login-card .card-header h3 {
+            font-weight: 500;
+        }
+        .login-card .card-header p {
+            opacity: 0.85;
+        }
+    </style>
+{% endblock %}
+
 {% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-7">
+            <div class="card security-card login-card">
+                <div class="card-header security-header text-white text-center py-4">
+                    <h3 class="mb-1"><i class="bi bi-person-circle me-2"></i> Login</h3>
+                    <p class="mb-0">Use seu usuário e senha</p>
+                </div>
+                <div class="card-body p-4">
+                    <form method="post" action="{% url 'login' %}" class="needs-validation" novalidate>
+                        {% csrf_token %}
 
-    <!-- Formulário de Login -->
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-lg-5 col-md-7 col-sm-12">
-                <div class="card border-0 shadow-lg">
-                    <div class="card-header bg-primary text-white text-center py-4">
-                        <h3 class="mb-1">Login</h3>
-                        <p class="mb-0">Use seu usuário e senha</p>
-                    </div>
-                    <div class="card-body p-4">
-                        <form method="post" action="{% url 'login' %}">
-                            {% csrf_token %}
-
-                            <!-- Campo de Usuário -->
-                            <div class="mb-3">
-                                <label for="username" class="form-label">Usuário</label>
-                                <input
-                                        type="text"
-                                        name="username"
-                                        class="form-control"
-                                        id="username"
-                                        required
-                                >
+                        <!-- Campo de Usuário -->
+                        <div class="mb-4">
+                            <label for="username" class="form-label">Usuário</label>
+                            <input
+                                type="text"
+                                name="username"
+                                class="form-control py-2"
+                                id="username"
+                                required
+                                placeholder="Digite seu usuário"
+                            >
+                            <div class="invalid-feedback">
+                                Por favor, informe o usuário.
                             </div>
+                        </div>
 
-                            <!-- Campo de Senha -->
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Senha</label>
+                        <!-- Campo de Senha -->
+                        <div class="mb-4 password-input">
+                            <label for="password" class="form-label">Senha</label>
+                            <div class="input-group">
                                 <input
-                                        type="password"
-                                        name="password"
-                                        class="form-control"
-                                        id="password"
-                                        required
+                                    type="password"
+                                    name="password"
+                                    class="form-control py-2"
+                                    id="password"
+                                    required
+                                    placeholder="Digite sua senha"
                                 >
+                                <i class="bi bi-eye-slash" id="togglePassword"></i>
+                                <div class="invalid-feedback">
+                                    Por favor, informe a senha.
+                                </div>
                             </div>
+                        </div>
 
-                            <button type="submit" class="btn btn-primary">Entrar</button>
-                        </form>
-                    </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-confirm py-2">
+                                <i class="bi bi-box-arrow-in-right me-2"></i> Entrar
+                            </button>
+                            <a href="{% url 'home' %}" class="btn btn-outline-secondary py-2">
+                                <i class="bi bi-x-circle me-2"></i> Cancelar
+                            </a>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer text-center py-3 bg-transparent">
+                    <small class="text-muted">Bem‐vindo! <i class="bi bi-person-fill"></i></small>
                 </div>
             </div>
         </div>
     </div>
+</div>
 {% endblock %}
 
-{% block script %}
+{% block extra_js %}
+    {{ block.super }}
     <script>
-        // Mostra as notificações toast automaticamente
-        document.addEventListener('DOMContentLoaded', function () {
-            var toasts = document.querySelectorAll('.toast');
-            toasts.forEach(function (toast) {
-                new bootstrap.Toast(toast).show();
-            });
+        // Mostrar/esconder senha
+        const togglePassword = document.querySelector('#togglePassword');
+        const password = document.querySelector('#password');
+
+        togglePassword.addEventListener('click', function () {
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            this.classList.toggle('bi-eye');
+            this.classList.toggle('bi-eye-slash');
         });
+
+        // Validação do formulário
+        (function () {
+            'use strict'
+            const forms = document.querySelectorAll('.needs-validation')
+
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        })()
     </script>
 {% endblock %}

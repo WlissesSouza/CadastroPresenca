@@ -1,0 +1,106 @@
+{% extends 'base_acesso.html' %}
+
+{% block title %}Confirmação de Segurança{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-7">
+            <div class="card security-card">
+                <div class="card-header security-header text-white text-center py-4">
+                    <h4><i class="bi bi-shield-lock me-2"></i> Confirmação de Segurança</h4>
+                </div>
+                <div class="card-body p-4">
+                    <div class="user-info mb-4">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-person-circle me-3" style="font-size: 2rem;"></i>
+                            <div>
+                                <h6 class="mb-0">Você está logado como:</h6>
+                                <strong>{{ request.user.username }}</strong>
+                            </div>
+                        </div>
+                        <div class="text-end mt-2">
+                            <form method="POST" action="{% url 'logout' %}" class="logout-link" style="margin: 0;">
+                                {% csrf_token %}
+                                <button type="submit">
+                                    <i class="bi bi-box-arrow-right"></i> Não é você? Sair
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="text-center mb-4">
+                        <p class="text-muted">Por motivos de segurança, confirme sua senha para continuar</p>
+                    </div>
+
+                    <form method="post" class="needs-validation" novalidate>
+                        {% csrf_token %}
+                        <input type="hidden" name="next_url" value="{{ next_url }}">
+
+                        <div class="mb-4 password-input">
+                            <label for="confirmar_senha" class="form-label">Digite sua senha</label>
+                            <div class="input-group">
+                                <input
+                                    type="password"
+                                    class="form-control py-2"
+                                    id="confirmar_senha"
+                                    name="confirmar_senha"
+                                    required
+                                    placeholder="Sua senha"
+                                >
+                                <i class="bi bi-eye-slash" id="togglePassword"></i>
+                            </div>
+                            <div class="invalid-feedback">
+                                Por favor, insira sua senha.
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-outline-azul py-2">
+                                <i class="bi bi-check-circle me-2"></i> Confirmar
+                            </button>
+                            <a href="{% url 'home' %}" class="btn btn-outline-vermelho py-2">
+                                <i class="bi bi-x-circle me-2"></i> Cancelar
+                            </a>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer text-center py-3 bg-transparent">
+                    <small class="text-muted">Sessão segura <i class="bi bi-lock-fill text-success"></i></small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+    <script>
+        // Mostrar ou esconder senha
+        const togglePassword = document.querySelector('#togglePassword');
+        const password = document.querySelector('#confirmar_senha');
+
+        togglePassword.addEventListener('click', function () {
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            this.classList.toggle('bi-eye');
+            this.classList.toggle('bi-eye-slash');
+        });
+
+        // Validação do formulário
+        (function () {
+            'use strict'
+            const forms = document.querySelectorAll('.needs-validation');
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        })();
+    </script>
+{% endblock %}

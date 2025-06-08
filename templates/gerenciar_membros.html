@@ -1,0 +1,242 @@
+{% extends 'base.html' %}
+{% load form_tags %}
+{% load static %}
+
+{% block title %}Cadastro Membros{% endblock %}
+
+{% block content %}
+    <!-- Modal -->
+    <div class="modal fade" id="gerenciar_membros" tabindex="-1" aria-labelledby="modalGerenciarMembros"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 900px; width: auto;">
+            <div class="modal-content" style="min-height: 300px;">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalGerenciarMembros">Cadastro de Membro</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                    </div>
+                    <div class="modal-body col-12">
+                        <div class="d-flex">
+                            <div class="mb-2 col-auto">
+                                <label for="{{ form.imagem.id_for_label }}" class="form-label">Foto</label>
+                                <div class="border bg-white d-flex flex-column align-items-center position-relative"
+                                     style="width: 400px; max-height: 400px; overflow: hidden; margin-right: 10px;">
+
+                                    <div id="image-container"
+                                         class="d-flex justify-content-center align-items-center"
+                                         style="width: 100%; height: 300px;">
+                                        <img id="preview-imagem"
+                                             src="
+
+
+
+                                                     {% if form.instance.imagem and form.instance.imagem.url %}{{ form.instance.imagem.url }}{% else %}{% static 'img/sem_img.jpg' %}{% endif %}"
+                                             alt="Pré-visualização da imagem"
+                                             style="max-width: 100%; max-height: 100%; object-fit: contain;">
+                                    </div>
+
+                                    <!-- Botão de restaurar -->
+                                    <button type="button" id="restaurar-imagem"
+                                            class="btn btn-sm btn-outline-secondary mt-2"
+                                            style="display: none;">
+                                        Restaurar imagem original
+                                    </button>
+                                    <!-- Botão de remover (ícone X) -->
+                                    <button type="button" id="remover-imagem"
+                                            class="btn btn-sm btn-outline-danger position-absolute"
+                                            style="top: 5px; right: 5px; padding: 0.2rem 0.5rem; line-height: 1; border: none;">
+                                        &times;
+                                    </button>
+                                </div>
+
+                                <!-- Input escondido + botão estilizado -->
+                                <input type="file" name="imagem" id="input-imagem" style="display: none;">
+                                <label for="input-imagem" class="btn btn-outline-primary btn-sm mt-2">Escolher
+                                    imagem</label>
+
+                                <input type="hidden" name="remover_imagem" id="remover-imagem-flag" value="0">
+
+
+
+                                {% for error in form.imagem.errors %}
+                                    <div class="text-danger small">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label for="{{ form.nome.id_for_label }}" class="form-label">Nome</label>
+                                    {{ form.nome|add_class:"form-control" }}
+                                    {% for error in form.nome.errors %}
+                                        <div class="text-danger small">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="{{ form.telefone.id_for_label }}" class="form-label">Telefone</label>
+                                    {{ form.telefone|add_class:"form-control" }}
+                                    {% for error in form.telefone.errors %}
+                                        <div class="text-danger small">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block script_extra %}
+    <!-- Ao fechar a modal irá retornar para a url /membros -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const modalElement = document.getElementById('gerenciar_membros');
+            const modal = new bootstrap.Modal(modalElement);
+
+            // Abre a modal automaticamente quando a página carrega
+            modal.show();
+
+            // Fecha a modal e redireciona quando:
+            // 1. O formulário é submetido com sucesso (sem erros)
+            // 2. O botão "Fechar" é clicado
+            // 3. O "X" é clicado
+            // 4. Clicar fora da modal
+
+            // Para o formulário (submissão bem-sucedida)
+            const form = document.querySelector('#gerenciar_membros form');
+            if (form) {
+                form.addEventListener('submit', function () {
+                    // Verifica se há erros de validação
+                    const errorElements = document.querySelectorAll('.text-danger');
+                    if (errorElements.length === 0) {
+                        // Se não houver erros, redireciona após o submit
+                        setTimeout(function () {
+                            window.location.href = '/membros';
+                        }, 100);
+                    }
+                    // Se houver erros, a modal permanece aberta
+                });
+            }
+
+            // Para os botões de fechar
+            const closeButtons = document.querySelectorAll('[data-bs-dismiss="modal"]');
+            closeButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    window.location.href = '/membros';
+                });
+            });
+
+            // Quando a modal é fechada por clicar fora
+            modalElement.addEventListener('hidden.bs.modal', function () {
+                window.location.href = '/membros';
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const inputImagem = document.querySelector('input[name="imagem"]');
+            const previewImagem = document.querySelector('#preview-imagem');
+
+            if (inputImagem && previewImagem) {
+                inputImagem.addEventListener('change', function (event) {
+                    const arquivo = event.target.files[0];
+                    if (arquivo) {
+                        const leitor = new FileReader();
+                        leitor.onload = function (e) {
+                            previewImagem.src = e.target.result;
+                        };
+                        leitor.readAsDataURL(arquivo);
+                    }
+                });
+            }
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const inputImagem = document.querySelector('input[name="imagem"]');
+            const previewImagem = document.getElementById('preview-imagem');
+            const botaoRestaurar = document.getElementById('restaurar-imagem');
+
+
+            const imagemOriginal = previewImagem.src; // Guarda a imagem original
+
+            if (inputImagem && previewImagem) {
+                inputImagem.addEventListener('change', function (event) {
+                    const arquivo = event.target.files[0];
+                    if (arquivo) {
+                        const leitor = new FileReader();
+                        leitor.onload = function (e) {
+                            previewImagem.src = e.target.result;
+                            botaoRestaurar.style.display = 'inline-block';
+                        };
+                        leitor.readAsDataURL(arquivo);
+                    }
+                });
+            }
+
+
+            botaoRestaurar.addEventListener('click', function () { // Restaurar imagem sava no cadastro
+                previewImagem.src = imagemOriginal;
+                inputImagem.value = '';  // Limpa o input de imagem
+                botaoRestaurar.style.display = 'none';
+            });
+        });
+    </script>
+
+    <!-- Ao clicar em remover ele irá exibir a imagem padrão -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const inputImagem = document.querySelector('#input-imagem');
+            const previewImagem = document.querySelector('#preview-imagem');
+            const restaurarBtn = document.querySelector('#restaurar-imagem');
+            const removerBtn = document.querySelector('#remover-imagem');
+            const removerFlag = document.querySelector('#remover-imagem-flag');
+
+            const imagemOriginal = previewImagem.src;
+
+            if (inputImagem) {
+                inputImagem.addEventListener('change', function (event) {
+                    const arquivo = event.target.files[0];
+                    if (arquivo) {
+                        const leitor = new FileReader();
+                        leitor.onload = function (e) {
+                            previewImagem.src = e.target.result;
+                            restaurarBtn.style.display = 'inline-block';
+                            removerFlag.value = '0';  // Nva imagem
+                        };
+                        leitor.readAsDataURL(arquivo);
+                    }
+                });
+            }
+
+            if (restaurarBtn) {
+                restaurarBtn.addEventListener('click', function () {
+                    previewImagem.src = imagemOriginal;
+                    inputImagem.value = '';
+                    removerFlag.value = '0'; // Restaurou a imagem antiga
+                    this.style.display = 'none';
+                });
+            }
+
+            if (removerBtn) {
+                removerBtn.addEventListener('click', function () {
+                    previewImagem.src = "{% static 'img/sem_img.jpg' %}";
+                    inputImagem.value = '';
+                    removerFlag.value = '1'; // A imagem vai ser removida da pasta
+                    restaurarBtn.style.display = 'inline-block';
+                });
+            }
+        });
+    </script>
+
+
+{% endblock %}

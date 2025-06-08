@@ -5,43 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7f665282-3a9c-44d7-b7b4-180ef6dada61" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/CadastroPresença.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CadastroPresença/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CadastroPresença/asgi.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CadastroPresença/settings.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CadastroPresença/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CadastroPresença/wsgi.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Conta/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Conta/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Conta/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Conta/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Conta/templates/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Conta/templates/registration/login.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Conta/templatetags/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Conta/templatetags/form_tags.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Conta/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Conta/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Conta/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Presenca/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Presenca/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Presenca/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Presenca/forms.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Presenca/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Presenca/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Presenca/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Presenca/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Presenca/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/manage.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/js/custom.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/home.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Conta/decorators.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Conta/static/css/style_controle.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Conta/templates/base_acesso.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Conta/templates/controle/confirmar_senha.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/img/sem_img.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/exibir_membros.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/gerenciar_membros.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/lista_membros.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CadastroPresença/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/CadastroPresença/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Conta/templates/registration/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/Conta/templates/registration/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Conta/templatetags/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Presenca/templatetags/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Conta/templatetags/form_tags.py" beforeDir="false" afterPath="$PROJECT_DIR$/Presenca/templatetags/form_tags.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Conta/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Conta/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Presenca/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/Presenca/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Presenca/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Presenca/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Presenca/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Presenca/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,9 +38,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="JavaScript File" />
+        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -66,9 +51,9 @@
   <component name="GithubDefaultAccount">
     <option name="defaultAccountId" value="eb899a26-6e57-46d6-b85e-c4e3ffa21aa7" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 3
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
   <component name="ProjectId" id="2y6zOk937bmHwhKpKBhsrcuiIO7" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -81,10 +66,12 @@
     "Django Server.CadastroPresença.executor": "Run",
     "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "django.template.preview.state": "SHOW_EDITOR",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/wliss/PycharmProjects/CadastroPresença",
+    "last_opened_file_path": "C:/Users/wliss/PycharmProjects/CadastroPresença/templates",
+    "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -96,12 +83,16 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\wliss\PycharmProjects\CadastroPresença\templates" />
+      <recent name="C:\Users\wliss\PycharmProjects\CadastroPresença\Presenca" />
       <recent name="C:\Users\wliss\PycharmProjects\CadastroPresença" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\wliss\PycharmProjects\CadastroPresença\Conta\templates" />
+      <recent name="C:\Users\wliss\PycharmProjects\CadastroPresença\Conta" />
+      <recent name="C:\Users\wliss\PycharmProjects\CadastroPresença\templates\includes" />
+      <recent name="C:\Users\wliss\PycharmProjects\CadastroPresença\static\img" />
       <recent name="C:\Users\wliss\PycharmProjects\CadastroPresença\static\js" />
-      <recent name="C:\Users\wliss\PycharmProjects\CadastroPresença" />
-      <recent name="C:\Users\wliss\PycharmProjects\CadastroPresença\templates" />
     </key>
   </component>
   <component name="RunManager">
@@ -147,7 +138,9 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1749169780335</updated>
-      <workItem from="1749169781404" duration="15377000" />
+      <workItem from="1749169781404" duration="16115000" />
+      <workItem from="1749214514973" duration="24353000" />
+      <workItem from="1749344236296" duration="14532000" />
     </task>
     <servers />
   </component>

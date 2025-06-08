@@ -1,5 +1,5 @@
 from django import forms
-from django.core.validators import RegexValidator
+from django.forms.widgets import FileInput
 from .models import Pessoas, RegistroPresenca
 import os
 from django.utils import timezone
@@ -12,8 +12,10 @@ class PessoaForm(forms.ModelForm):
         widgets = {
             'telefone': forms.TextInput(attrs={
                 'data-mask': '(00) 00000-0000',
-                'placeholder': '(XX) XXXXX-XXXX'
-            })
+                'placeholder': 'Digite somente os numeros'
+            }),
+            'imagem': FileInput(attrs={'class': 'form-control-file mt-2'}),
+
         }
 
     def clean_telefone(self):

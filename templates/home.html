@@ -6,9 +6,12 @@
     <div class="text-center">
         <h1 class="display-4">Espaço Novo Tempo!</h1>
 
-
+        {% for pessoa in pessoas %}
+            <p>{{ pessoa.nome }} - {{ pessoa.telefone }}</p>
+            <a href="{% url 'editar_membro' pessoa.id %}" class="btn btn-warning">Editar</a>
+        {% endfor %}
         <!-- A Fazer, botao de teste de layout-->
-        <a href="cadastro/" class="btn btn-primary btn-lg mt-3"><i></i>Cadastrar</a> <!-- A Fazer-->
-        <a href="presenca/" class="btn btn-primary btn-lg mt-3"><i></i>Lista Presença</a>
+        <a href="membros/novo" class="btn btn-primary btn-lg mt-3"><i></i>Cadastrar</a>
+        <a href="chamada/" class="btn btn-primary btn-lg mt-3"><i></i>Lista Presença</a>
     </div>
 {% endblock %}

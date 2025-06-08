@@ -11,7 +11,6 @@ def login_view(request):
 
         if user is not None:
             login(request, user)
-            messages.success(request, 'Login realizado com sucesso')  # Mensagem de sucesso
             return redirect('home')  # Rota de retorno (pagina principal)
         else:
             messages.error(request, 'Usuário ou senha incorretos.')  # Mensagem de erro
