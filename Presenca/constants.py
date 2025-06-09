@@ -1,11 +1,14 @@
 class BatizadoOptions:
-    NAO_BATIZADO = 0
+    NAO_INFORMADO = 0
     ADVENTISTA = 1
     OUTROS = 2
+    NAO_BATIZADO = 3
+
     CHOICES = [
-        (NAO_BATIZADO, "Não Batizado"),
+        (NAO_INFORMADO, "Não Informado"),
         (ADVENTISTA, "Adventista"),
         (OUTROS, "Outros"),
+        (NAO_BATIZADO, "Não Batizado"),
     ]
 
     @classmethod

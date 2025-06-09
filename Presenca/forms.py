@@ -12,10 +12,9 @@ class PessoaForm(forms.ModelForm):
         widgets = {
             'telefone': forms.TextInput(attrs={
                 'data-mask': '(00) 00000-0000',
-                'placeholder': 'Digite somente os numeros'
             }),
             'imagem': FileInput(attrs={'class': 'form-control-file mt-2'}),
-            'batizado': forms.Select(choices=BatizadoConstants.CHOICES),
+            'batizado': forms.Select(choices=BatizadoOptions.CHOICES),
 
         }
 

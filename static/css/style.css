@@ -1,6 +1,5 @@
 * {
     box-sizing: border-box;
-    font-family: "Times New Roman", Times, serif;
 }
 
 body {
@@ -36,8 +35,8 @@ table {
 }
 
 thead th {
-    background-color: #0d6efd;
-    color: white;
+    background-color: #475095 !important;
+    color: white !important;
     text-align: left;
 }
 
@@ -46,27 +45,41 @@ tr td, tr th {
     vertical-align: middle !important;
 }
 
-tr:nth-child(even) td {
-    background-color: #f1f5ff !important;
+tr:nth-child(odd) td {
+    background-color: rgba(229, 229, 232, 0.96) !important;
 }
 
-tr:nth-child(odd) td {
-    background-color: #e2edff !important;
+tr:nth-child(even) td {
+    background-color: #ffffff !important;
 }
 
 tr td:last-child,
-tr th:last-child {
+tr th:last-child, tr td:first-child {
     width: 120px;
     text-align: center;
 }
 
+tr td:last-child button, tr td:first-child i {
+    color: #000000 !important;
+    background-color: transparent !important;
+}
+
+ tr td:first-child i:hover, tr td:last-child button:hover, table .dropdown-item:hover {
+    color: #0f1c65 !important;
+}
 .form-control::placeholder {
     color: #6c757d;
     opacity: 0.8;
 }
 
-.btn-padrao{
+.btn-padrao {
     padding: 10px 60px;
     margin: 0 10px;
     font-size: 16px;
+}
+
+
+.color-red {
+    color: red;
+    padding: 0 10px;
 }

@@ -31,8 +31,8 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container py-4 flex-grow-1">
-        <div class="d-flex flex-wrap align-items-center justify-content-between mb-4 gap-2">
+    <div class="container mt-4 py-3 flex-grow-1">
+        <div class="d-flex flex-wrap align-items-center justify-content-between mt-4 gap-2">
             <div class="flex-grow-1">
                 <h2 class="mb-0">Lista de Membros</h2>
             </div>
@@ -42,7 +42,7 @@
                 <div class="position-relative w-100">
                     <input id="filtro-nome" type="text" class="form-control pe-5" placeholder="Digite o nome"
                            autocomplete="off">
-                    <i class="bi bi-search position-absolute top-50 end-0 translate-middle-y me-3 text-muted"></i>
+                    <i class="bi bi-search position-absolute top-50 end-0 translate-middle-y me-3 text-muted opacity-30"></i>
                 </div>
             </div>
 
@@ -52,9 +52,10 @@
         <table class="table" id="tabela-membros">
             <thead class="">
             <tr>
-                <th scope="col">Foto</th>
+                <th scope="col" class="text-center">Foto</th>
                 <th scope="col">Nome</th>
                 <th scope="col">Telefone</th>
+                <th scope="col">Batizado</th>
                 <th scope="col" class="text-center">Ações</th>
             </tr>
             </thead>
@@ -72,7 +73,10 @@
                     <td>
                         {{ membro.telefone }}
                     </td>
-                    <td class="text-center">
+                    <td>
+                        {{ membro.get_batizado_display }}
+                    </td>
+                    <td>
                         <!-- Dropdown de ações -->
                         <button
                                 class="btn btn-sm btn-outline-secondary dropdown-toggle"
@@ -86,7 +90,7 @@
                             &hellip;
                         </button>
                         <ul
-                                class="dropdown-menu dropdown-menu-end px-3"
+                                class="dropdown-menu dropdown-menu-end px-1"
                                 aria-labelledby="acoesDropdown{{ membro.id }}"
                                 data-bs-boundary="viewport"
                                 data-bs-display="dynamic"
@@ -94,7 +98,7 @@
 
                             {# Item: Editar #}
                             <li>
-                                <a class="dropdown-item  text-primary" href="{% url 'editar_membro' membro.id %}">
+                                <a class="dropdown-item" href="{% url 'editar_membro' membro.id %}">
                                     <i class="bi bi-pencil me-2"></i> Editar
                                 </a>
                             </li>
@@ -217,8 +221,6 @@
                 });
             });
         });
-
-
     </script>
 {% endblock %}
 

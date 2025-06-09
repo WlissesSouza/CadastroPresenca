@@ -29,7 +29,7 @@ class Pessoas(models.Model):
     )
     batizado = models.IntegerField(
         choices=BatizadoOptions.CHOICES,
-        default=BatizadoOptions.OUTROS
+        default=BatizadoOptions.NAO_INFORMADO
     )
     data_cadastro = models.DateTimeField(
         auto_now_add=True,
