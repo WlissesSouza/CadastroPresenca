@@ -3,6 +3,7 @@ from .forms import PessoaForm
 from .models import Pessoas
 from django.core.files.storage import default_storage
 from django.contrib import messages
+from django.http import JsonResponse
 
 from Conta.decorators import confirmar_senha_required
 
@@ -13,23 +14,7 @@ def home(request):
 @confirmar_senha_required
 def lista_membros(request):
     membros = Pessoas.objects.all()
-    return render(request, 'lista_membros.html', {'pessoas': membros})
-
-
-@confirmar_senha_required
-def exibir_membro(request, id):
-    pessoa = get_object_or_404(Pessoas, pk=id)
-
-    chave = f'revealed_phone_{id}'
-    if request.session.get(chave):
-        # já estava revelado, então bloqueia
-        del request.session[chave]
-    else:
-        # revela para esse usuário
-        request.session[chave] = True
-
-    return redirect('lista_membros')
-
+    return render(request, 'lista_membros.html', {'membros': membros})
 
 @confirmar_senha_required
 def gerenciar_membro(request, id=None):
@@ -85,11 +70,16 @@ def gerenciar_membro(request, id=None):
     return render(request, 'gerenciar_membros.html', {'form': form})
 
 
+from django.views.decorators.http import require_POST
+
+@require_POST
 @confirmar_senha_required
-def exibir_membro(request, id=None):
-    pessoa = get_object_or_404(Pessoas, pk=id) if id else None
-    if pessoa:
-        return render(request, 'exibir_membros.html', {'pessoa': pessoa})
-    else:
-        messages.error(request, 'Usuario nao existe!')
-        return redirect('lista_membros')
+def deletar_membro(request, id):
+    try:
+        membro = Pessoas.objects.get(pk=id)
+        membro.delete()
+        return JsonResponse({'success': True, 'message': 'Membro deletado com sucesso.'})
+    except Pessoas.DoesNotExist:
+        return JsonResponse({'success': False, 'message': 'Membro não encontrado.'}, status=404)
+    except Exception as e:
+        return JsonResponse({'success': False, 'message': str(e)}, status=500)

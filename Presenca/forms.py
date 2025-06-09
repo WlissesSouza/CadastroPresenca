@@ -3,7 +3,7 @@ from django.forms.widgets import FileInput
 from .models import Pessoas, RegistroPresenca
 import os
 from django.utils import timezone
-
+from .constants import BatizadoOptions
 
 class PessoaForm(forms.ModelForm):
     class Meta:
@@ -15,6 +15,7 @@ class PessoaForm(forms.ModelForm):
                 'placeholder': 'Digite somente os numeros'
             }),
             'imagem': FileInput(attrs={'class': 'form-control-file mt-2'}),
+            'batizado': forms.Select(choices=BatizadoConstants.CHOICES),
 
         }
 
@@ -22,7 +23,7 @@ class PessoaForm(forms.ModelForm):
         telefone = self.cleaned_data['telefone']
         numeros = ''.join(filter(str.isdigit, telefone))
         if len(numeros) not in [10, 11]:
-            raise forms.ValidationError("Telefone deve ter 10 (fixo) ou 11 (celular) dígitos")
+            raise forms.ValidationError("Telefone deve ter 10   (fixo) ou 11 (celular) dígitos")
         return telefone
 
     def save(self, commit=True):

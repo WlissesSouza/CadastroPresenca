@@ -14,3 +14,9 @@ def add_class(field, css_class):
     field.field.widget.attrs[
         "class"] = f"{existing_classes} {css_class} {classes_padrao_erro if field.errors else ""}".strip()
     return field
+
+
+@register.filter(name="add_style")
+def add_style(field, css_style):
+    """Adiciona estilo inline ao campo de formulário."""
+    return field.as_widget(attrs={"style": css_style})

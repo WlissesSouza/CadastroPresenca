@@ -1,7 +1,7 @@
 from django.utils import timezone
 from django.db import models
 from django.conf import settings
-
+from .constants import BatizadoOptions
 
 class Pessoas(models.Model):
     imagem = models.ImageField(
@@ -21,11 +21,15 @@ class Pessoas(models.Model):
         verbose_name='Telefone',
         help_text='Formato: (XX) XXXXX-XXXX'
     )
-    endereco = models.CharField(
+    endereco = models.TextField(
         max_length=200,
         blank=True,
         default='',
         verbose_name='Endereço Completo'
+    )
+    batizado = models.IntegerField(
+        choices=BatizadoOptions.CHOICES,
+        default=BatizadoOptions.OUTROS
     )
     data_cadastro = models.DateTimeField(
         auto_now_add=True,
